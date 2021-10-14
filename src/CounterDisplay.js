@@ -1,27 +1,19 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux';
-import { decrementCounter, incrementCounter } from './actions';
+import { MyContext } from './Context';
 
 class CounterDisplay extends Component {
   render() {
-    const { countNumber, decrement, increment} = this.props;
+    const { increment, decrement, counter } = this.context;
     return (
       <div>
         <button onClick={increment}>+</button>
-        <p>{countNumber}</p>
+        <p>{counter}</p>
         <button onClick={decrement}>-</button>
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => ({
-  countNumber: state.counterReducer,
-});
+CounterDisplay.contextType = MyContext;
 
-const mapDispatchToProps = (dispatch) => ({ 
-  decrement: (state) => dispatch(decrementCounter(state)),
-  increment: (state) => dispatch(incrementCounter(state)),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(CounterDisplay);
+export default CounterDisplay;
